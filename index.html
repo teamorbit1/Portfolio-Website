@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyler Jakubowski | Developer Portfolio</title>
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #050816;
+            --bg-alt: #0b1020;
+            --text-color: #e5e7eb;
+            --muted-color: #9ca3af;
+            --primary: #4f46e5;
+            --primary-soft: rgba(79, 70, 229, 0.3);
+            --accent: #22d3ee;
+            --accent-soft: rgba(34, 211, 238, 0.2);
+            --danger: #f97373;
+            --card-bg: rgba(15, 23, 42, 0.9);
+            --border-subtle: rgba(148, 163, 184, 0.25);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+            --radius-lg: 18px;
+            --radius-pill: 999px;
+            --navbar-bg: rgba(15, 23, 42, 0.9);
+            --hero-gradient: radial-gradient(circle at top left, #4f46e5 0%, transparent 55%),
+                             radial-gradient(circle at top right, #22d3ee 0%, transparent 55%),
+                             radial-gradient(circle at bottom, #f97316 0%, transparent 55%);
+        }
+
+        body.light-mode {
+            --bg-color: #f8fafc;
+            --bg-alt: #e5e7eb;
+            --text-color: #020617;
+            --muted-color: #4b5563;
+            --primary: #4f46e5;
+            --primary-soft: rgba(79, 70, 229, 0.12);
+            --accent: #0ea5e9;
+            --accent-soft: rgba(14, 165, 233, 0.14);
+            --danger: #ef4444;
+            --card-bg: #ffffff;
+            --border-subtle: rgba(148, 163, 184, 0.35);
+            --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.12);
+            --navbar-bg: rgba(248, 250, 252, 0.9);
+            --hero-gradient: radial-gradient(circle at top left, #4f46e5 0%, transparent 55%),
+                             radial-gradient(circle at top right, #0ea5e9 0%, transparent 55%),
+                             radial-gradient(circle at bottom, #f97316 0%, transparent 55%);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 70px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: var(--hero-gradient);
+            opacity: 0.55;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            filter: blur(60px);
+            z-index: -2;
+            animation: bgPulse 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate3d(-40px, 20px, 0) scale(1.15);
+                opacity: 0.7;
+            }
+        }
+
+
+        /* Animations */
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .stagger-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpStagger 0.7s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes fadeUpStagger {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+            background-color: var(--navbar-bg) !important;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.45);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .navbar-brand span.logo-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+            box-shadow: 0 0 16px var(--accent);
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 4px;
+            width: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            transition: width 0.25s ease-out;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 18px;
+        }
+
+        /* Dark mode toggle */
+
+        .theme-toggle {
+            border-radius: var(--radius-pill);
+            padding: 6px 14px;
+            border: 1px solid var(--border-subtle);
+            background: radial-gradient(circle at top, var(--accent-soft), transparent 70%);
+            color: var(--text-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease-out;
+        }
+
+        .theme-toggle:hover::before {
+            transform: translateX(100%);
+        }
+
+        .theme-toggle i {
+            font-size: 0.95rem;
+        }
+
+        .theme-toggle .toggle-indicator {
+            width: 26px;
+            height: 14px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            position: relative;
+        }
+
+        .theme-toggle .toggle-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
+            position: absolute;
+            top: 50%;
+            left: 2px;
+            transform: translateY(-50%);
+            transition: transform 0.25s ease-out;
+        }
+
+        body.light-mode .theme-toggle .toggle-circle {
+            transform: translate(10px, -50%);
+            box-shadow: 0 0 12px var(--primary);
+        }
+
+        /* HERO */
+
+        .hero {
+            position: relative;
+            padding: 90px 0 80px;
+        }
+
+        .hero-card {
+            position: relative;
+            border-radius: 26px;
+            padding: 40px 32px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.24), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.18), transparent 55%),
+                        rgba(15, 23, 42, 0.95);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+        }
+
+        body.light-mode .hero-card {
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.12), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.12), transparent 55%),
+                        #ffffff;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            width: 480px;
+            height: 480px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.32), transparent 60%);
+            top: -260px;
+            right: -260px;
+            filter: blur(4px);
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .hero-name {
+            background: linear-gradient(120deg, #e5e7eb, #a855f7, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        body.light-mode .hero-name {
+            background: linear-gradient(120deg, #0f172a, #4f46e5, #0ea5e9);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: var(--radius-pill);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            background: radial-gradient(circle at top, rgba(56,189,248,0.25), transparent 70%);
+        }
+
+        .hero-pill i {
+            color: #22d3ee;
+        }
+
+        .hero-cta {
+            margin-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-primary-glow {
+            border-radius: var(--radius-pill);
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(120deg, #4f46e5, #22d3ee);
+            color: white;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 24px rgba(56, 189, 248, 0.6);
+        }
+
+        .btn-primary-glow span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-primary-glow::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease-out;
+        }
+
+        .btn-primary-glow:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-outline-ghost {
+            border-radius: var(--radius-pill);
+            padding: 9px 18px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            color: var(--text-color);
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(15, 23, 42, 0.8);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        body.light-mode .btn-outline-ghost {
+            background: rgba(248, 250, 252, 0.9);
+        }
+
+        .btn-outline-ghost i {
+            font-size: 0.85rem;
+        }
+
+        .hero-right {
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .hero-orbit-card {
+            border-radius: 22px;
+            padding: 16px 18px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+            max-width: 260px;
+            margin-left: auto;
+        }
+
+        body.light-mode .hero-orbit-card {
+            background: linear-gradient(135deg, #ffffff, #f1f5f9);
+        }
+
+        .hero-orbit-card .badge-tech {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.55);
+        }
+
+        .hero-orbit-techs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .hero-orbit-techs span {
+            font-size: 0.68rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px dashed rgba(148, 163, 184, 0.5);
+        }
+
+        body.light-mode .hero-orbit-techs span {
+            background: #f9fafb;
+        }
+
+        .hero-stat-chip {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+        }
+
+        body.light-mode .hero-stat-chip {
+            background: #f9fafb;
+        }
+
+        .hero-floating-pill {
+            margin-top: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            background: radial-gradient(circle at top, rgba(34, 197, 94, 0.35), transparent 70%);
+            color: #bbf7d0;
+            border: 1px solid rgba(34, 197, 94, 0.6);
+            position: relative; /* no absolute => no overlap */
+        }
+
+        /* Resume */
+
+        .resume-modal {
+            border-radius: 22px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(22px);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.6);
+            color: var(--text-color);
+        }
+
+        body.light-mode .resume-modal {
+            background: rgba(255,255,255,0.92);
+            border: 1px solid rgba(148,163,184,0.35);
+        }
+
+
+        /* Sections */
+
+        section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 18px;
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .section-title span.accent {
+            background: linear-gradient(120deg, #22d3ee, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 520px;
+            margin: 0 auto 40px;
+            font-size: 0.95rem;
+            color: var(--muted-color);
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 2px;
+            border-radius: 999px;
+            margin: 0 auto 4px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+        }
+
+        /* PROJECTS */
+
+        .project-card {
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            background: rgba(15, 23, 42, 0.96);
+            box-shadow: 0 16px 35px rgba(15, 23, 42, 0.85);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.22s ease-out, box-shadow 0.22s ease-out, border-color 0.22s;
+        }
+
+        body.light-mode .project-card {
+            background: #ffffff;
+            box-shadow: 0 18px 28px rgba(15, 23, 42, 0.14);
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(120deg, rgba(79, 70, 229, 0.3), rgba(34, 211, 238, 0.3));
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 22px 50px rgba(15, 23, 42, 0.95);
+        }
+
+        .project-card-inner {
+            position: relative;
+            z-index: 1;
+            padding: 18px 18px 16px;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .project-meta .badge {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 999px;
+            padding: 4px 10px;
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            font-weight: 400;
+        }
+
+        body.light-mode .project-meta .badge {
+            background: #f9fafb;
+        }
+
+        .project-stats span {
+            margin-left: 6px;
+            color: var(--muted-color);
+        }
+
+        .project-stats i {
+            color: #facc15;
+        }
+
+        .project-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            margin-bottom: 12px;
+        }
+
+        .project-link {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        /* SKILLS */
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .skill-card {
+            border-radius: var(--radius-lg);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--border-subtle);
+            padding: 16px 16px 12px;
+        }
+
+        body.light-mode .skill-card {
+            background: #ffffff;
+        }
+
+        .skill-card h4 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .skill-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .skill-pill {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        body.light-mode .skill-pill {
+            background: #f9fafb;
+        }
+
+        .skill-meter-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--muted-color);
+            margin-top: 4px;
+        }
+
+        .skill-bar {
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.9);
+            overflow: hidden;
+            border: 1px solid rgba(30, 64, 175, 0.45);
+        }
+
+        body.light-mode .skill-bar {
+            background: #e5e7eb;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            border-radius: inherit;
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.8);
+        }
+
+        /* GITHUB STATS + NEON CALENDAR */
+
+        .github-wrapper {
+            border-radius: 22px;
+            border: 1px solid var(--border-subtle);
+            background: rgba(15, 23, 42, 0.96);
+            padding: 18px 18px 18px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+        }
+
+        body.light-mode .github-wrapper {
+            background: #ffffff;
+            box-shadow: 0 18px 25px rgba(15, 23, 42, 0.14);
+        }
+
+        .github-stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .github-stat-card {
+            border-radius: 18px;
+            padding: 10px;
+            background: radial-gradient(circle at top, rgba(34, 211, 238, 0.2), transparent 70%);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            text-align: center;
+        }
+
+        .github-stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--muted-color);
+        }
+
+        .github-stat-value {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .github-stat-icon {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            color: var(--accent);
+        }
+
+        .github-calendar-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--muted-color);
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .github-calendar-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.68rem;
+            color: var(--muted-color);
+        }
+
+        .legend-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .github-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(36, 1fr);
+            gap: 2px;
+            padding: 8px 6px 4px;
+            border-radius: 14px;
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.3), transparent 60%),
+                        radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.2), transparent 60%),
+                        rgba(15, 23, 42, 0.98);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            overflow: hidden;
+            position: relative;
+        }
+
+        body.light-mode .github-calendar-grid {
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.12), transparent 60%),
+                        radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.12), transparent 60%),
+                        #f9fafb;
+        }
+
+        .calendar-cell {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(30, 64, 175, 0.75);
+            box-shadow: 0 0 0 rgba(34, 211, 238, 0.0);
+            transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, background 0.16s ease-out;
+        }
+
+        body.light-mode .calendar-cell {
+            background: #e5e7eb;
+        }
+
+        .calendar-cell.level-1 { background: #0f172a; }
+        .calendar-cell.level-2 { background: #1e293b; }
+        .calendar-cell.level-3 { background: #1d4ed8; box-shadow: 0 0 8px rgba(37, 99, 235, 0.8); }
+        .calendar-cell.level-4 { background: #22d3ee; box-shadow: 0 0 12px rgba(34, 211, 238, 1); }
+        .calendar-cell.level-5 { background: #a855f7; box-shadow: 0 0 14px rgba(168, 85, 247, 1); }
+
+        .calendar-cell.glow-pulse {
+            animation: glowPulse 1.6s ease-in-out infinite alternate;
+        }
+
+        .calendar-cell:hover {
+            transform: scale(1.35);
+            box-shadow: 0 0 16px rgba(34, 211, 238, 1);
+            z-index: 2;
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 6px rgba(34, 211, 238, 0.6); }
+            100% { box-shadow: 0 0 16px rgba(168, 85, 247, 1); }
+        }
+
+        .github-note {
+            font-size: 0.7rem;
+            color: var(--muted-color);
+            margin-top: 8px;
+        }
+
+        /* CONTACT */
+
+        .contact-card {
+            border-radius: 22px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid var(--border-subtle);
+            padding: 18px 18px 16px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+        }
+
+        body.light-mode .contact-card {
+            background: #ffffff;
+            box-shadow: 0 18px 25px rgba(15, 23, 42, 0.12);
+        }
+
+        .form-control,
+        .form-control:focus {
+            border-radius: 12px;
+            border-color: rgba(148, 163, 184, 0.7);
+            background-color: rgba(15, 23, 42, 0.9);
+            color: var(--text-color);
+            box-shadow: none;
+        }
+
+        body.light-mode .form-control {
+            background-color: #f9fafb;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--muted-color);
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.25);
+            padding: 22px 0 24px;
+            font-size: 0.8rem;
+            color: var(--muted-color);
+            background: rgba(15, 23, 42, 0.96);
+        }
+
+        body.light-mode footer {
+            background: #f9fafb;
+        }
+
+        .social-links a {
+            color: var(--muted-color);
+            margin: 0 6px;
+            font-size: 1.1rem;
+            transition: color 0.2s ease-out, transform 0.2s ease-out;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            color: var(--muted-color);
+        }
+
+        .tag-pill i {
+            font-size: 0.75rem;
+        }
+
+        .text-code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                padding-top: 46px;
+            }
+            .hero-orbit-card {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .github-calendar-grid {
+                grid-template-columns: repeat(24, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <span class="logo-dot"></span>
+                <span>Tyler&nbsp;Jakubowski</span>
+            </a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item mx-lg-2"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item mx-lg-2"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item mx-lg-2"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item mx-lg-2"><a class="nav-link" href="#github">GitHub</a></li>
+                    <li class="nav-item mx-lg-2"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <button id="themeToggle" class="theme-toggle">
+                            <i id="themeIcon" class="fas fa-moon"></i>
+                            <span id="themeLabel" class="d-none d-md-inline">Dark</span>
+                            <div class="toggle-indicator">
+                                <div class="toggle-circle"></div>
+                            </div>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-card fade-in-up">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <div class="hero-pill mb-3">
+                            <i class="fas fa-circle-up"></i>
+                            <span>Full Stack Engineer • Game Dev • UI/UX</span>
+                        </div>
+                        <p class="hero-subtitle mb-2">Building clean experiences with a gamer’s eye for feel</p>
+                        <h1 class="hero-title mb-3">
+                            Hey, I'm <span class="hero-name">Tyler&nbsp;Jakubowski</span>.
+                        </h1>
+                        <p class="mb-4" style="max-width: 520px; font-size: 0.95rem;">
+                            I blend full-stack development with game-dev level polish.
+                            From <span class="text-code">React / Node</span> apps to
+                            <span class="text-code">Unity FPS</span> systems and
+                            anti-cheat and ML-driven gameplay insights, I care about
+                            experiences that feel smooth, responsive, and fun to use.
+                        </p>
+
+                        <div class="hero-cta">
+                            <a href="#projects" class="btn btn-primary-glow">
+                                <span><i class="fas fa-rocket me-2"></i>View Projects</span>
+                            </a>
+                            <a href="#contact" class="btn btn-outline-ghost">
+                                <i class="fas fa-message"></i>
+                                <span>Let's Talk</span>
+                            </a>
+                            <a href="#" class="btn btn-outline-ghost" data-bs-toggle="modal" data-bs-target="#resumeModal">
+                                <i class="fas fa-file-alt"></i>
+                                <span>View Resume</span>
+                            </a>
+                        </div>
+
+                        <div class="d-flex flex-wrap align-items-center gap-2 mt-4">
+                            <span class="tag-pill">
+                                <i class="fas fa-code"></i> Full Stack
+                            </span>
+                            <span class="tag-pill">
+                                <i class="fas fa-gamepad"></i> Unity & FPS Systems
+                            </span>
+                            <span class="tag-pill">
+                                <i class="fas fa-shield-alt"></i> Anti-Cheat & ML
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 hero-right mt-3 mt-lg-0">
+                        <div class="hero-orbit-card">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="badge-tech"><i class="fab fa-github me-1"></i>GitHub Orbit</span>
+                                <span class="hero-stat-chip"><span id="heroRepoCount">--</span> Public Repos</span>
+                            </div>
+                            <p class="mb-2" style="font-size: 0.8rem; color: var(--muted-color);">
+                                Currently hacking on survival-style systems, FPS mechanics, and production-ready web tools.
+                            </p>
+                            <div class="hero-orbit-techs">
+                                <span>TypeScript</span>
+                                <span>React</span>
+                                <span>Node.js</span>
+                                <span>Unity / C#</span>
+                                <span>Photon Fusion</span>
+                                <span>Anti-Cheat</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <small class="text-uppercase" style="letter-spacing: 0.12em; font-size: 0.7rem;">
+                                    <span id="heroFollowers">--</span> Followers • <span id="heroStars">--</span> Stars
+                                </small>
+                                <a href="https://github.com/teamorbit1" target="_blank" class="text-decoration-none" style="font-size: 0.74rem;">
+                                    View GitHub <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="hero-floating-pill">
+                            <i class="fas fa-circle-dot"></i>
+                            <span>Actively seeking software engineering opportunities</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">
+                Projects <span class="accent">& Builds</span>
+            </div>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">
+                A mix of full-stack apps, tools, and game-dev systems pulled live from my GitHub.
+            </p>
+
+            <div class="row g-3" id="projects-container">
+                <div class="d-flex flex-column align-items-center py-4">
+                    <div class="spinner-border text-info mb-2" role="status">
+                        <span class="visually-hidden">Loading projects…</span>
+                    </div>
+                    <p class="mb-0" style="font-size: 0.9rem; color: var(--muted-color);">
+                        Fetching repositories from <span class="text-code">github.com/teamorbit1</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-title">
+                Skills <span class="accent">& Focus</span>
+            </div>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">
+                I care about shipping things that feel great: clean code, smooth UX, and systems that scale.
+            </p>
+
+            <div class="skills-grid">
+                <div class="skill-card fade-in-up">
+                    <h4>Frontend engineering</h4>
+                    <div class="skill-pill-row">
+                        <span class="skill-pill">HTML5 / CSS3</span>
+                        <span class="skill-pill">JavaScript / TypeScript</span>
+                        <span class="skill-pill">React</span>
+                        <span class="skill-pill">Bootstrap / Tailwind</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 92%;"></div>
+                    </div>
+                    <div class="skill-meter-label">
+                        <span>Pixel-perfect UI</span>
+                        <span>92%</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in-up">
+                    <h4>Backend & apis</h4>
+                    <div class="skill-pill-row">
+                        <span class="skill-pill">Node.js</span>
+                        <span class="skill-pill">Express</span>
+                        <span class="skill-pill">Python</span>
+                        <span class="skill-pill">REST APIs</span>
+                        <span class="skill-pill">SQL / NoSQL</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 84%;"></div>
+                    </div>
+                    <div class="skill-meter-label">
+                        <span>Reliable backend logic</span>
+                        <span>84%</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in-up">
+                    <h4>Game development</h4>
+                    <div class="skill-pill-row">
+                        <span class="skill-pill">Unity / C#</span>
+                        <span class="skill-pill">Photon Fusion</span>
+                        <span class="skill-pill">Anti-Cheat Systems</span>
+                        <span class="skill-pill">Machine Learning</span>
+                        <span class="skill-pill">FPS Mechanics</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 88%;"></div>
+                    </div>
+                    <div class="skill-meter-label">
+                        <span>Feel & moment-to-moment gameplay</span>
+                        <span>88%</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in-up">
+                    <h4>Devops & workflow</h4>
+                    <div class="skill-pill-row">
+                        <span class="skill-pill">Git / GitHub</span>
+                        <span class="skill-pill">CI/CD basics</span>
+                        <span class="skill-pill">Cloud-hosted apps</span>
+                        <span class="skill-pill">Debugging</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 78%;"></div>
+                    </div>
+                    <div class="skill-meter-label">
+                        <span>Shipping & iteration</span>
+                        <span>78%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GITHUB STATS + NEON CALENDAR -->
+    <section id="github">
+        <div class="container">
+            <div class="section-title">
+                GitHub <span class="accent">Signal</span>
+            </div>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">
+                Live stats from <span class="text-code">teamorbit1</span> plus a neon-styled activity heatmap inspired by the GitHub contribution calendar.
+            </p>
+
+            <div class="github-wrapper fade-in-up">
+                <div class="github-stats-row">
+                    <div class="github-stat-card">
+                        <div class="github-stat-icon"><i class="fab fa-github"></i></div>
+                        <div class="github-stat-label">Repositories</div>
+                        <div class="github-stat-value" id="repo-count">--</div>
+                    </div>
+                    <div class="github-stat-card">
+                        <div class="github-stat-icon"><i class="fas fa-code-branch"></i></div>
+                        <div class="github-stat-label">Gists</div>
+                        <div class="github-stat-value" id="gist-count">--</div>
+                    </div>
+                    <div class="github-stat-card">
+                        <div class="github-stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="github-stat-label">Followers</div>
+                        <div class="github-stat-value" id="follower-count">--</div>
+                    </div>
+                    <div class="github-stat-card">
+                        <div class="github-stat-icon"><i class="fas fa-star"></i></div>
+                        <div class="github-stat-label">Total Stars</div>
+                        <div class="github-stat-value" id="star-count">--</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="github-calendar-title">
+                        <span>Neon Contribution Heatmap</span>
+                        <div class="github-calendar-legend">
+                            <span><span class="legend-box" style="background:#0f172a;"></span> Low</span>
+                            <span><span class="legend-box" style="background:#1d4ed8;"></span> Medium</span>
+                            <span><span class="legend-box" style="background:#22d3ee;"></span> High</span>
+                            <span><span class="legend-box" style="background:#a855f7;"></span> Peak</span>
+                        </div>
+                    </div>
+                    <div id="github-calendar" class="github-calendar-grid">
+                        <!-- cells created in JS -->
+                    </div>
+                    <p class="github-note">
+                        Visual, stylized representation inspired by recent activity. For exact data, see my
+                        <a href="https://github.com/teamorbit1" target="_blank" class="text-decoration-none">GitHub profile</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                Let's <span class="accent">Connect</span>
+            </div>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">
+                Looking for a developer who can think like a game designer and build like an engineer?
+                Drop me a message—I'd love to talk.
+            </p>
+
+            <div class="row justify-content-center">
+                <div class="col-md-7">
+                    <div class="contact-card">
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary-glow w-100">
+                                <span><i class="fas fa-paper-plane me-2"></i>Send Message</span>
+                            </button>
+                            <p class="mt-2 mb-0" style="font-size: 0.75rem; color: var(--muted-color);">
+                                Or email me directly at
+                                <span class="text-code">tjaku126@gmail.com</span>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center">
+        <div class="container">
+            <div class="mb-2">
+                <div class="social-links">
+                    <a href="https://github.com/teamorbit1" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/tyler-jakubowski-5122b9219/" target="_blank"><i class="fab fa-linkedin"></i></a> 
+                </div>
+            </div>
+            <div>
+                &copy; <span id="year"></span> Tyler Jakubowski. Built with clean code, good coffee, and a game dev mindset.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const githubUsername = "teamorbit1";
+
+        async function fetchGitHubData() {
+            try {
+                const [userRes, reposRes] = await Promise.all([
+                    fetch(`https://api.github.com/users/${githubUsername}`),
+                    fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=30`)
+                ]);
+
+                const user = await userRes.json();
+                let repos = await reposRes.json();
+
+                if (!Array.isArray(repos)) {
+                    console.warn("Unexpected repo response:", repos);
+                    repos = [];
+                }
+
+                // Basic stats
+                document.getElementById("repo-count").textContent = user.public_repos ?? "--";
+                document.getElementById("gist-count").textContent = user.public_gists ?? "--";
+                document.getElementById("follower-count").textContent = user.followers ?? "--";
+
+                document.getElementById("heroRepoCount").textContent = user.public_repos ?? "--";
+                document.getElementById("heroFollowers").textContent = user.followers ?? "--";
+
+                const totalStars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+                document.getElementById("star-count").textContent = totalStars;
+                document.getElementById("heroStars").textContent = totalStars;
+
+                // Filter repos: no forks, then sort by stars and recent activity
+                repos = repos
+                    .filter(r => !r.fork)
+                    .sort((a, b) => {
+                        const starDiff = (b.stargazers_count || 0) - (a.stargazers_count || 0);
+                        if (starDiff !== 0) return starDiff;
+                        return new Date(b.pushed_at) - new Date(a.pushed_at);
+                    })
+                    .slice(0, 9);
+
+                loadProjects(repos);
+                generateNeonCalendar(repos);
+            } catch (error) {
+                console.error("GitHub API Error:", error);
+                const container = document.getElementById("projects-container");
+                container.innerHTML = '<p class="text-danger text-center">Failed to load GitHub data. Try refreshing in a bit.</p>';
+            }
+        }
+
+        function loadProjects(repos) {
+            const projectsContainer = document.getElementById("projects-container");
+            projectsContainer.innerHTML = "";
+
+            if (!repos.length) {
+                projectsContainer.innerHTML = '<p class="text-center" style="color: var(--muted-color);">No public repositories found yet—check back soon.</p>';
+                return;
+            }
+
+            repos.forEach(repo => {
+                const col = document.createElement("div");
+                col.className = "col-md-6 col-lg-4";
+
+                const lang = repo.language || "Multilingual";
+                const stars = repo.stargazers_count || 0;
+                const forks = repo.forks_count || 0;
+                const desc = repo.description || "No description provided yet.";
+
+                col.innerHTML = `
+                    <div class="project-card stagger-card">
+                        <div class="project-card-inner">
+                            <div class="project-meta">
+                                <span class="badge"><i class="fas fa-circle-dot me-1"></i>${lang}</span>
+                                <div class="project-stats">
+                                    <span><i class="fas fa-star me-1"></i>${stars}</span>
+                                    <span><i class="fas fa-code-branch ms-2 me-1"></i>${forks}</span>
+                                </div>
+                            </div>
+                            <h3 class="project-title mb-1">${repo.name}</h3>
+                            <p class="project-desc">${desc}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="${repo.html_url}" target="_blank" class="project-link text-decoration-none">
+                                    View on GitHub <i class="fas fa-arrow-up-right-from-square ms-1"></i>
+                                </a>
+                                <span class="tag-pill">
+                                    <i class="fas fa-clock"></i>
+                                    <span style="font-size:0.7rem;">Updated ${new Date(repo.pushed_at).toLocaleDateString()}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                projectsContainer.appendChild(col);
+                col.style.animationDelay = `${(Math.random() * 0.3).toFixed(2)}s`;
+            });
+        }
+
+        // Neon GitHub-style contribution heatmap (stylized, not 1:1 with real calendar)
+        function generateNeonCalendar(repos) {
+            const calendarEl = document.getElementById("github-calendar");
+            if (!calendarEl) return;
+
+            calendarEl.innerHTML = "";
+
+            const cols = 36;
+            const rows = 7;
+            const totalCells = cols * rows;
+            const activity = new Array(totalCells).fill(0);
+
+            const now = new Date().getTime();
+            repos.forEach(repo => {
+                const ageFactor = Math.max(0.2, 1 - (now - new Date(repo.pushed_at).getTime()) / (1000 * 60 * 60 * 24 * 365));
+                const score = (repo.stargazers_count || 0) * 0.9 + (repo.forks_count || 0) * 0.7 + 4 * ageFactor;
+                for (let j = 0; j < 8; j++) {
+                    const idx = Math.floor(Math.random() * totalCells);
+                    activity[idx] += score * (0.6 + Math.random() * 0.8);
+                }
+            });
+
+            const maxScore = Math.max(...activity, 1);
+            const cells = [];
+
+            for (let i = 0; i < totalCells; i++) {
+                const value = activity[i] / maxScore;
+                let level = 0;
+                if (value > 0.8) level = 5;
+                else if (value > 0.6) level = 4;
+                else if (value > 0.4) level = 3;
+                else if (value > 0.2) level = 2;
+                else if (value > 0.05) level = 1;
+
+                const cell = document.createElement("div");
+                cell.classList.add("calendar-cell");
+                if (level > 0) cell.classList.add(`level-${level}`);
+
+                cells.push({ cell, level });
+                calendarEl.appendChild(cell);
+            }
+
+            function animatePulse() {
+                cells.forEach(({ cell }) => {
+                    cell.classList.remove("glow-pulse");
+                });
+
+                const highCells = cells.filter(c => c.level >= 3);
+                if (highCells.length) {
+                    const pulseCount = Math.min(18, highCells.length);
+                    for (let i = 0; i < pulseCount; i++) {
+                        const idx = Math.floor(Math.random() * highCells.length);
+                        highCells[idx].cell.classList.add("glow-pulse");
+                    }
+                }
+            }
+
+            animatePulse();
+            setInterval(animatePulse, 2500);
+        }
+
+        function applyTheme(theme) {
+            const body = document.body;
+            const icon = document.getElementById("themeIcon");
+            const label = document.getElementById("themeLabel");
+
+            body.classList.remove("light-mode", "dark-mode");
+            if (theme === "light") {
+                body.classList.add("light-mode");
+                if (icon) {
+                    icon.classList.remove("fa-moon");
+                    icon.classList.add("fa-sun");
+                }
+                if (label) label.textContent = "Light";
+            } else {
+                body.classList.add("dark-mode");
+                if (icon) {
+                    icon.classList.remove("fa-sun");
+                    icon.classList.add("fa-moon");
+                }
+                if (label) label.textContent = "Dark";
+            }
+
+            localStorage.setItem("tyler-portfolio-theme", theme);
+        }
+
+        function setupThemeToggle() {
+            const savedTheme = localStorage.getItem("tyler-portfolio-theme") || "dark";
+            applyTheme(savedTheme);
+
+            const toggleBtn = document.getElementById("themeToggle");
+            if (!toggleBtn) return;
+
+            toggleBtn.addEventListener("click", () => {
+                const current = document.body.classList.contains("light-mode") ? "light" : "dark";
+                const next = current === "light" ? "dark" : "light";
+                applyTheme(next);
+            });
+        }
+
+        function setupNavLinks() {
+            const links = document.querySelectorAll(".nav-link");
+            links.forEach(link => {
+                link.addEventListener("click", () => {
+                    links.forEach(l => l.classList.remove("active"));
+                    link.classList.add("active");
+                });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("year").textContent = new Date().getFullYear();
+            setupThemeToggle();
+            setupNavLinks();
+            fetchGitHubData();
+        });
+    </script>
+
+    <!-- Resume Modal -->
+<div class="modal fade" id="resumeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content resume-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">My Resume</h5>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+
+                <iframe 
+                    src="Tyler_Jakubowski_Resume_v2.pdf" 
+                    style="width:100%; height:75vh; border-radius:16px; border:1px solid rgba(255,255,255,0.1);" 
+                    frameborder="0">
+                </iframe>
+
+                <a href="Tyler_Jakubowski_Resume_v2.pdf" download class="btn btn-primary-glow mt-3 w-100">
+                    <span><i class="fas fa-download me-2"></i>Download PDF</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
