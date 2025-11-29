@@ -589,6 +589,9 @@
             font-size: 0.9rem;
             color: var(--muted-color);
             margin-bottom: 12px;
+            max-height: 65px;
+            min-height: 65px;
+            overflow: hidden;
         }
 
         .project-link {
@@ -610,7 +613,15 @@
             background: rgba(15, 23, 42, 0.95);
             border: 1px solid var(--border-subtle);
             padding: 16px 16px 12px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
+
+        .skill-meter-wrapper {
+            margin-top: auto;
+        }
+
 
         body.light-mode .skill-card {
             background: #ffffff;
@@ -901,7 +912,8 @@
                 grid-template-columns: repeat(24, 1fr);
             }
         }
-    </style>
+    
+</style>
 </head>
 <body>
     <!-- NAVBAR -->
@@ -1058,43 +1070,57 @@
             </p>
 
             <div class="skills-grid">
+
+                <!-- FRONTEND -->
                 <div class="skill-card fade-in-up">
                     <h4>Frontend engineering</h4>
+
                     <div class="skill-pill-row">
                         <span class="skill-pill">HTML5 / CSS3</span>
                         <span class="skill-pill">JavaScript / TypeScript</span>
                         <span class="skill-pill">React</span>
                         <span class="skill-pill">Bootstrap / Tailwind</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 92%;"></div>
-                    </div>
-                    <div class="skill-meter-label">
-                        <span>Pixel-perfect UI</span>
-                        <span>92%</span>
+
+                    <div class="skill-meter-wrapper">
+                        <div class="skill-meter-label">
+                            <span>Pixel-perfect UI</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%;"></div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- BACKEND -->
                 <div class="skill-card fade-in-up">
-                    <h4>Backend & apis</h4>
+                    <h4>Backend & APIs</h4>
+
                     <div class="skill-pill-row">
                         <span class="skill-pill">Node.js</span>
                         <span class="skill-pill">Express</span>
                         <span class="skill-pill">Python</span>
                         <span class="skill-pill">REST APIs</span>
                         <span class="skill-pill">SQL / NoSQL</span>
+                        <span class="skill-pill">Prisma</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 84%;"></div>
-                    </div>
-                    <div class="skill-meter-label">
-                        <span>Reliable backend logic</span>
-                        <span>84%</span>
+
+                    <div class="skill-meter-wrapper">
+                        <div class="skill-meter-label">
+                            <span>Reliable backend logic</span>
+                            <span>84%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 84%;"></div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- GAME DEV -->
                 <div class="skill-card fade-in-up">
                     <h4>Game development</h4>
+
                     <div class="skill-pill-row">
                         <span class="skill-pill">Unity / C#</span>
                         <span class="skill-pill">Photon Fusion</span>
@@ -1102,32 +1128,42 @@
                         <span class="skill-pill">Machine Learning</span>
                         <span class="skill-pill">FPS Mechanics</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 88%;"></div>
-                    </div>
-                    <div class="skill-meter-label">
-                        <span>Feel & moment-to-moment gameplay</span>
-                        <span>88%</span>
+
+                    <div class="skill-meter-wrapper">
+                        <div class="skill-meter-label">
+                            <span>Feel & moment-to-moment gameplay</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%;"></div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- DEVOPS -->
                 <div class="skill-card fade-in-up">
-                    <h4>Devops & workflow</h4>
+                    <h4>DevOps & workflow</h4>
+
                     <div class="skill-pill-row">
                         <span class="skill-pill">Git / GitHub</span>
                         <span class="skill-pill">CI/CD basics</span>
                         <span class="skill-pill">Cloud-hosted apps</span>
                         <span class="skill-pill">Debugging</span>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 78%;"></div>
-                    </div>
-                    <div class="skill-meter-label">
-                        <span>Shipping & iteration</span>
-                        <span>78%</span>
+
+                    <div class="skill-meter-wrapper">
+                        <div class="skill-meter-label">
+                            <span>Shipping & iteration</span>
+                            <span>78%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 78%;"></div>
+                        </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </section>
 
